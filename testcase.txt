@@ -1,0 +1,139 @@
+Case1:
+
+query parallelQuery($id: Long!, $skipAge: Boolean = false, $includeCommon: Boolean!) {
+  
+  singleUser: getUser(id: $id) {
+    ...common,
+    age @skip(if: $skipAge)
+  }
+  
+  allUsers: getUsers {
+    ...common @include(if: $includeCommon),
+    sex
+  }
+  
+  allUsers1: getUsers1 {
+    __typename,
+    ... on User1 {
+      name,
+      age
+    }
+    ... on User2 {
+      name,
+      sex
+    }
+  }
+  
+  allUsers2: getUsers2 {
+    __typename,
+    name,
+    ... on User1 {
+      age
+    }
+    ... on User2 {
+      sex
+    }
+  }
+  
+  getHottestBlog {
+  	id,
+  	title,
+  	content,
+  	comment
+	}
+  
+}
+
+fragment common on User {
+  id,
+  name
+}
+
+{
+  "id": 1,
+  "skipAge": true,
+  "includeCommon": true
+}
+
+Case2:
+
+mutation ($user: UserVO!) {
+  addUser(user: $user)
+}
+
+{
+  "user": {
+    "name": "sunn",
+    "age": 26,
+    "sex": "MALE"
+  }
+}
+
+Case3:
+
+mutation ($id: Long!, $name: String!, $age: Short) {
+  modifyUser(id: $id, name: $name, age: $age)
+}
+
+{
+  "id": 3,
+  "name": "sunny",
+  "age": 26,
+  "sex": "FEMALE"
+}
+
+Case4:
+
+mutation ($id: Long!) {
+  deleteUser(id: $id)
+}
+
+{
+  "id": 3
+}
+
+Case5:
+
+{
+  __schema {
+    types {
+      name
+      description
+    }
+    mutationType {
+      name
+      description
+      fields {
+        name
+        args {
+          __typename
+          name
+          description
+        }
+        description
+      }
+    }
+  }
+}
+
+Case6:
+
+
+{
+  __type(name: "User") {
+    name
+    fields {
+      name
+      description
+      type {
+        name
+        kind
+        ofType {
+          name
+          kind
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,103 @@
+enum SexEnum {
+    # 男
+    MALE
+    # 女
+    FEMALE
+}
+
+interface User {
+
+    # ID
+    id: Long!
+    # 姓名
+    name: String!
+
+}
+
+type User1 implements User {
+
+    # ID
+    id: Long!
+    # 姓名
+    name: String!
+    # 年龄
+    age: Short
+
+}
+
+type User2 implements User {
+
+    # ID
+    id: Long!
+    # 姓名
+    name: String!
+    # 性别
+    sex: SexEnum
+
+}
+
+type Blog {
+    # ID
+    id: Long!
+    # 标题
+    title: String!
+    # 内容
+    content: String
+    # 用户id
+    userId: Long!
+    # 评论数
+    comment: Int
+
+}
+
+input UserVO {
+
+    # 姓名
+    name: String!
+    # 年龄
+    age: Short
+    # 性别
+    sex: SexEnum
+
+}
+
+union UserUnion = User1 | User2
+
+# type QuerySrv {
+
+    # 根据id获取用户
+    # getUser(id: Long!): User1
+
+    # 获取用户列表
+    # getUsers: [User2!]
+
+    # 获取用户列表
+    # getUsers1: [UserUnion!]
+
+    # 获取用户列表
+    # getUsers2: [User!]
+
+    # 获取评论数最高的博客
+    # getHottestBlog: Blog
+
+# }
+
+# type MutationSrv {
+
+    # 添加用户
+    # addUser(user: UserVO!) : Long!
+
+    # 修改用户信息
+    # modifyUser(id: Long!, name: String!, age: Short, sex: SexEnum) : Boolean!
+
+    # 删除用户
+    # deleteUser(id: Long!) : Boolean!
+
+# }
+
+# schema {
+
+    # query: QuerySrv
+    # mutation: MutationSrv
+
+# }

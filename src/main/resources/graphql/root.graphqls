@@ -1,0 +1,31 @@
+type Query {
+
+    # 根据id获取用户
+    getUser(id: Long!): User1
+
+    # 获取用户列表
+    getUsers: [User2!]
+
+    # 获取用户列表
+    getUsers1: [UserUnion!]
+
+    # 获取用户列表
+    getUsers2: [User!]
+
+    # 获取评论数最高的博客
+    getHottestBlog: Blog
+
+}
+
+type Mutation {
+
+    # 添加用户
+    addUser(user: UserVO!) : Long!
+
+    # 修改用户信息
+    modifyUser(id: Long!, name: String!, age: Short, sex: SexEnum) : Boolean!
+
+    # 删除用户
+    deleteUser(id: Long!) : Boolean!
+
+}
